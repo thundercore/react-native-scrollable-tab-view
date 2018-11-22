@@ -91,6 +91,14 @@ const ScrollableTabView = createReactClass({
       this.goToPage(props.page);
     }
   },
+  
+  setScrollEnabled(value) {
+      if (this.scrollView && typeof this.scrollView.setNativeProps === 'function') {
+          this.scrollView.setNativeProps({
+              scrollEnabled: value,
+          });
+      }
+  },
 
   goToPage(pageNumber, animated = !this.props.scrollWithoutAnimation) {
     const offset = pageNumber * this.state.containerWidth;
