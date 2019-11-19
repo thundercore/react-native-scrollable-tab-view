@@ -63,7 +63,6 @@ const DefaultTabBar = createReactClass({
     const tabUnderlineStyle = {
       position: 'absolute',
       width: containerWidth / numberOfTabs,
-      height: 4,
       backgroundColor: 'navy',
       bottom: 0,
     };
@@ -78,7 +77,11 @@ const DefaultTabBar = createReactClass({
           const renderTab = this.props.renderTab || this.renderTab;
           return renderTab(name, page, isTabActive, this.props.goToPage);
         })}
-        <Animated.View style={[tabUnderlineStyle, { left, }, this.props.underlineStyle, ]} />
+        <Animated.View style={[tabUnderlineStyle,{backgroundColor:'transparent'}, { left }]} >
+          <View style={[tabUnderlineStyle, {height: 4}, this.props.underlineStyle ]} >
+
+          </View>
+        </Animated.View>
       </View>
     );
   },
