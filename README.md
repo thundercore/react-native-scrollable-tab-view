@@ -1,6 +1,7 @@
 
 ## react-native-scrollable-tab-view
-[![npm version](https://badge.fury.io/js/react-native-scrollable-tab-view.svg)](https://badge.fury.io/js/react-native-scrollable-tab-view)
+[![npm version](http://img.shields.io/npm/v/@yz1311/react-native-scrollable-tab-view.svg?style=flat-square)](https://npmjs.org/package/@yz1311/react-native-scrollable-tab-view "View this project on npm")
+[![npm version](http://img.shields.io/npm/dm/@yz1311/react-native-scrollable-tab-view.svg?style=flat-square)](https://npmjs.org/package/@yz1311/react-native-scrollable-tab-view "View this project on npm")
 
 This is probably my favorite navigation pattern on Android, I wish it
 were more common on iOS! This is a very simple JavaScript-only
@@ -11,8 +12,8 @@ the animations behind this work, check out the Rebound section of the
 
 ## Add it to your project
 
-1. Run `npm install react-native-scrollable-tab-view --save`
-2. `var ScrollableTabView = require('react-native-scrollable-tab-view');`
+1. Run `npm install @yz1311/react-native-scrollable-tab-view --save`
+2. `var ScrollableTabView = require('@yz1311/react-native-scrollable-tab-view');`
 
 ## Demo
 <a href="https://appetize.io/embed/6qfv7eydjtm34mhn6qwj2nt3xm?embed=true&screenOnly=false&xdocMsg=true&debug=true&scale=100&deviceColor=black&orientation=portrait&device=iphone6s&osVersion=9.3&deviceId=RGV2aWNlOjU2Y2FjNTExZWQwOTM2MTEwMGRhYTNlNg&platform=ios&width=375&height=668&phoneWidth=416&phoneHeight=870&screenOffsetLeft=21&screenOffsetTop=100&params=%7B%7D" target="_blank"><strong>Run this example</strong></a>
@@ -23,7 +24,7 @@ the animations behind this work, check out the Rebound section of the
 ## Basic usage
 
 ```javascript
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+var ScrollableTabView = require('@yz1311/react-native-scrollable-tab-view');
 
 var App = React.createClass({
   render() {
@@ -44,7 +45,7 @@ Suppose we had a custom tab bar called `CustomTabBar`, we would inject
 it into our `ScrollableTabView` like this:
 
 ```javascript
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+var ScrollableTabView = require('@yz1311/react-native-scrollable-tab-view');
 var CustomTabBar = require('./CustomTabBar');
 
 var App = React.createClass({
