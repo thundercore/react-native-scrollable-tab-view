@@ -130,6 +130,8 @@ export interface ChangeTabProperties {
 }
 
 export default class ScrollableTabView extends React.Component<ScrollableTabViewProperties> {
+    setScrollEnabled: (value: boolean)=>void;
+    goToPage: (pageNumber: number,animated?: boolean)=>void;
 }
 
 // Each top-level child component should have a tabLabel prop
