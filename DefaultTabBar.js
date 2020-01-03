@@ -1,5 +1,7 @@
 const React = require('react');
-const { ViewPropTypes, } = ReactNative = require('react-native');
+const { ViewPropTypes } = ReactNative = require('react-native');
+const PropTypes = require('prop-types');
+const createReactClass = require('create-react-class');
 const {
   StyleSheet,
   Text,
@@ -7,9 +9,6 @@ const {
   Animated,
 } = ReactNative;
 const Button = require('./Button');
-
-const createReactClass = require('create-react-class');
-const PropTypes = require('prop-types');
 
 const DefaultTabBar = createReactClass({
   propTypes: {
@@ -42,7 +41,7 @@ const DefaultTabBar = createReactClass({
     const fontWeight = isTabActive ? 'bold' : 'normal';
 
     return <Button
-      style={styles.flexOne}
+      style={{flex: 1, }}
       key={name}
       accessible={true}
       accessibilityLabel={name}
@@ -63,12 +62,14 @@ const DefaultTabBar = createReactClass({
     const tabUnderlineStyle = {
       position: 'absolute',
       width: containerWidth / numberOfTabs,
+      height: 4,
       backgroundColor: 'navy',
       bottom: 0,
     };
 
-    const left = this.props.scrollValue.interpolate({
-      inputRange: [0, 1, ], outputRange: [0,  containerWidth / numberOfTabs, ],
+    const translateX = this.props.scrollValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0,  containerWidth / numberOfTabs],
     });
     return (
       <View style={[styles.tabs, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}>
@@ -77,11 +78,17 @@ const DefaultTabBar = createReactClass({
           const renderTab = this.props.renderTab || this.renderTab;
           return renderTab(name, page, isTabActive, this.props.goToPage);
         })}
-        <Animated.View style={[tabUnderlineStyle,{backgroundColor:'transparent'}, { left }]} >
-          <View style={[tabUnderlineStyle, {height: 4}, this.props.underlineStyle ]} >
-
-          </View>
-        </Animated.View>
+        <Animated.View
+          style={[
+            tabUnderlineStyle,
+            {
+              transform: [
+                { translateX },
+              ]
+            },
+            this.props.underlineStyle,
+          ]}
+        />
       </View>
     );
   },
@@ -93,9 +100,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 10,
-  },
-  flexOne: {
-    flex: 1,
   },
   tabs: {
     height: 50,
