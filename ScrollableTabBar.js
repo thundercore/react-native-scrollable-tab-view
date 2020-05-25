@@ -23,6 +23,8 @@ const ScrollableTabBar = createReactClass({
     backgroundColor: PropTypes.string,
     activeTextColor: PropTypes.string,
     inactiveTextColor: PropTypes.string,
+    activeTextFontSize: PropTypes.number,
+    inactiveTextFontSize: PropTypes.number,
     scrollOffset: PropTypes.number,
     style: ViewPropTypes.style,
     tabStyle: ViewPropTypes.style,
@@ -38,6 +40,8 @@ const ScrollableTabBar = createReactClass({
       scrollOffset: 52,
       activeTextColor: 'navy',
       inactiveTextColor: 'black',
+      activeTextFontSize: 25,
+      inactiveTextFontSize: 25,
       backgroundColor: null,
       style: {},
       tabStyle: {},
@@ -125,8 +129,9 @@ const ScrollableTabBar = createReactClass({
   },
 
   renderTab(name, page, isTabActive, onPressHandler, onLayoutHandler) {
-    const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
+    const { activeTextColor, inactiveTextColor, activeTextFontSize, inactiveTextFontSize, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
+    const textFontSize = isTabActive? activeTextFontSize : inactiveTextFontSize;
     const fontWeight = isTabActive ? 'bold' : 'normal';
 
     return <Button
@@ -138,7 +143,7 @@ const ScrollableTabBar = createReactClass({
       onLayout={onLayoutHandler}
     >
       <View style={[styles.tab, this.props.tabStyle, ]}>
-        <Text style={[{color: textColor, fontWeight, }, textStyle, ]}>
+        <Text style={[{color: textColor, fontSize: textFontSize, fontWeight, }, textStyle, ]}>
           {name}
         </Text>
       </View>
@@ -154,7 +159,6 @@ const ScrollableTabBar = createReactClass({
   render() {
     const tabUnderlineStyle = {
       position: 'absolute',
-      height: 4,
       backgroundColor: 'navy',
       bottom: 0,
     };
@@ -163,10 +167,6 @@ const ScrollableTabBar = createReactClass({
       left: this.state._leftTabUnderline,
       width: this.state._widthTabUnderline,
     };
-
-    const {
-      onScroll,
-    } = this.props;
 
     return <View
       style={[styles.container, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}
@@ -180,8 +180,6 @@ const ScrollableTabBar = createReactClass({
         directionalLockEnabled={true}
         bounces={false}
         scrollsToTop={false}
-        onScroll={onScroll}
-        scrollEventThrottle={16}
       >
         <View
           style={[styles.tabs, {width: this.state._containerWidth, }, this.props.tabsContainerStyle, ]}
@@ -193,7 +191,11 @@ const ScrollableTabBar = createReactClass({
             const renderTab = this.props.renderTab || this.renderTab;
             return renderTab(name, page, isTabActive, this.props.goToPage, this.measureTab.bind(this, page));
           })}
-          <Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, this.props.underlineStyle, ]} />
+          <Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, {backgroundColor:'transparent'} ]} >
+            <View style={[tabUnderlineStyle, {height: 4}, this.props.underlineStyle ]} >
+
+            </View>
+          </Animated.View>
         </View>
       </ScrollView>
     </View>;

@@ -1,8 +1,9 @@
 {
-  "name": "react-native-scrollable-tab-view",
-  "version": "1.0.0",
+  "name": "@yz1311/react-native-scrollable-tab-view",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "lint": "eslint -c .eslintrc . --ignore-path .gitignore",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +24,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/brentvatne/react-native-scrollable-tab-view/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "react-native": ">=0.20.0"
