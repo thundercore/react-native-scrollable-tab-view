@@ -1,3 +1,11 @@
+# 1.0.5 (2020-08-04)
+
+* scrollableTabBar的underline改为非撑满模式
+
+# 1.0.4
+
+* 修复RN0.62版本下，报getNode的警告问题
+
 # 1.0.3
 
 * 修复RN0.62版本下，报getNode的警告问题
