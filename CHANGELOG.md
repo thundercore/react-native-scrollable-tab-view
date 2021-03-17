@@ -1,3 +1,7 @@
+# 1.0.6 (2021-03-17)
+
+* 修复对`@react-native-community/viewpager`高版本的兼容
+
 # 1.0.5 (2020-08-04)
 
 * scrollableTabBar的underline改为非撑满模式
