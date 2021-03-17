@@ -15,10 +15,13 @@ const {
 
 const ViewPagerAndroid = require('@react-native-community/viewpager');
 const TimerMixin = require('react-timer-mixin');
-const ViewPager = require('@react-native-community/viewpager');
+let ViewPager = require('@react-native-community/viewpager');
+if(typeof ViewPager === 'object' && typeof ViewPager.default === 'function') {
+  ViewPager = ViewPager.default;
+}
 
 const SceneComponent = require('./SceneComponent');
-const DefaultTabBar = require('./DefaultTabBar');
+const DefaultTabBar = require('./DefaultTabBar').default;
 const ScrollableTabBar = require('./ScrollableTabBar');
 
 const AnimatedViewPagerAndroid = Platform.OS === 'android' ?
@@ -137,14 +140,20 @@ const ScrollableTabView = createReactClass({
     if (Platform.OS === 'ios') {
       const offset = pageNumber * this.state.containerWidth;
       if (this.scrollView) {
-        this.scrollView.getNode().scrollTo({x: offset, y: 0, animated: !this.props.scrollWithoutAnimation, });
+        let targetView = this.scrollView.scrollTo
+            ? this.scrollView
+            : this.scrollView.getNode();
+        targetView.scrollTo({x: offset, y: 0, animated: !this.props.scrollWithoutAnimation, });
       }
     } else {
       if (this.scrollView) {
+        let targetView = this.scrollView.setPageWithoutAnimation
+            ? this.scrollView
+            : this.scrollView.getNode();
         if (this.props.scrollWithoutAnimation) {
-          this.scrollView.getNode().setPageWithoutAnimation(pageNumber);
+          targetView.setPageWithoutAnimation(pageNumber);
         } else {
-          this.scrollView.getNode().setPage(pageNumber);
+          targetView.setPage(pageNumber);
         }
       }
     }
@@ -339,7 +348,7 @@ const ScrollableTabView = createReactClass({
     if (!width || width <= 0 || Math.round(width) === Math.round(this.state.containerWidth)) {
       return;
     }
-    
+
     if (Platform.OS === 'ios') {
       const containerWidthAnimatedValue = new Animated.Value(width);
       // Need to call __makeNative manually to avoid a native animated bug. See

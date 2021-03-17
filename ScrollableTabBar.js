@@ -129,7 +129,7 @@ const ScrollableTabBar = createReactClass({
   },
 
   renderTab(name, page, isTabActive, onPressHandler, onLayoutHandler) {
-    const { activeTextColor, inactiveTextColor, activeTextFontSize, inactiveTextFontSize, textStyle, } = this.props;
+    const { activeTextColor, inactiveTextColor, textStyle, activeTextFontSize, inactiveTextFontSize } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
     const textFontSize = isTabActive? activeTextFontSize : inactiveTextFontSize;
     const fontWeight = isTabActive ? 'bold' : 'normal';
@@ -157,8 +157,11 @@ const ScrollableTabBar = createReactClass({
   },
 
   render() {
+    const containerWidth = this.props.containerWidth;
+    const numberOfTabs = this.props.tabs.length;
     const tabUnderlineStyle = {
       position: 'absolute',
+      // height: 4,
       backgroundColor: 'navy',
       bottom: 0,
     };
@@ -167,6 +170,15 @@ const ScrollableTabBar = createReactClass({
       left: this.state._leftTabUnderline,
       width: this.state._widthTabUnderline,
     };
+
+    const {
+      onScroll,
+    } = this.props;
+
+    const translateX = this.props.scrollValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0,  containerWidth / numberOfTabs],
+    });
 
     return <View
       style={[styles.container, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}
@@ -180,6 +192,8 @@ const ScrollableTabBar = createReactClass({
         directionalLockEnabled={true}
         bounces={false}
         scrollsToTop={false}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
       >
         <View
           style={[styles.tabs, {width: this.state._containerWidth, }, this.props.tabsContainerStyle, ]}
@@ -191,8 +205,8 @@ const ScrollableTabBar = createReactClass({
             const renderTab = this.props.renderTab || this.renderTab;
             return renderTab(name, page, isTabActive, this.props.goToPage, this.measureTab.bind(this, page));
           })}
-          <Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, {backgroundColor:'transparent'} ]} >
-            <View style={[tabUnderlineStyle, {height: 4}, this.props.underlineStyle ]} >
+          <Animated.View style={[tabUnderlineStyle, {backgroundColor:'transparent'}, dynamicTabUnderline]} >
+            <View style={[{flex:1, height: 4}, this.props.underlineStyle ]} >
 
             </View>
           </Animated.View>
