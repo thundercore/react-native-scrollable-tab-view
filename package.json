@@ -1,6 +1,6 @@
 {
   "name": "@yz1311/react-native-scrollable-tab-view",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "types": "index.d.ts",
@@ -29,11 +29,11 @@
     "access": "public"
   },
   "peerDependencies": {
-    "react-native": ">=0.20.0"
+    "react-native": ">=0.20.0",
+    "@react-native-community/viewpager": "^2.0.1"
   },
   "homepage": "https://github.com/yz1311/react-native-scrollable-tab-view#readme",
   "dependencies": {
-    "@react-native-community/viewpager": "^2.0.1",
     "create-react-class": "^15.6.2",
     "prop-types": "^15.6.0",
     "react-timer-mixin": "^0.13.3"
