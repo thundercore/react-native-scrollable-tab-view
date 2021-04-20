@@ -1,6 +1,6 @@
 {
   "name": "@yz1311/react-native-scrollable-tab-view",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "index.js",
   "types": "index.d.ts",
@@ -30,7 +30,7 @@
   },
   "peerDependencies": {
     "react-native": ">=0.20.0",
-    "@react-native-community/viewpager": "^2.0.1"
+    "react-native-pager-view": "*"
   },
   "homepage": "https://github.com/yz1311/react-native-scrollable-tab-view#readme",
   "dependencies": {

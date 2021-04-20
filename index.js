@@ -13,9 +13,8 @@ const {
   InteractionManager,
 } = ReactNative;
 
-const ViewPagerAndroid = require('@react-native-community/viewpager');
 const TimerMixin = require('react-timer-mixin');
-let ViewPager = require('@react-native-community/viewpager');
+let ViewPager = require('react-native-pager-view');
 if(typeof ViewPager === 'object' && typeof ViewPager.default === 'function') {
   ViewPager = ViewPager.default;
 }
