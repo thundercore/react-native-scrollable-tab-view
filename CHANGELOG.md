@@ -1,3 +1,7 @@
+# 1.0.9 (2021-05-03)
+
+* 将`ScrollableTabView`改写为class组件
+
 # 1.0.6 (2021-03-17)
 
 * 修复对`@react-native-community/viewpager`高版本的兼容
