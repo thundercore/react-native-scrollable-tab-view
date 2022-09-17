@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Animated,
-  ViewPropTypes,
 } from 'react-native';
+import {ViewPropTypes, TextPropTypes} from 'deprecated-react-native-prop-types';
 const PropTypes = require('prop-types');
 const Button = require('./Button');
 
-export default class DefaultTabBar extends Component {
+export default class DefaultTabBar extends PureComponent {
   static propTypes = {
     goToPage: PropTypes.func,
     activeTab: PropTypes.number,
@@ -19,7 +19,9 @@ export default class DefaultTabBar extends Component {
     inactiveTextColor: PropTypes.string,
     activeTextFontSize: PropTypes.number,
     inactiveTextFontSize: PropTypes.number,
-    textStyle: Text.propTypes.style,
+    activeTextFontWeight: PropTypes.string,
+    inactiveTextFontWeight: PropTypes.string,
+    textStyle: TextPropTypes.style,
     tabStyle: ViewPropTypes.style,
     renderTab: PropTypes.func,
     underlineStyle: ViewPropTypes.style,
@@ -31,6 +33,8 @@ export default class DefaultTabBar extends Component {
     activeTextFontSize: 25,
     inactiveTextFontSize: 25,
     backgroundColor: null,
+    activeTextFontWeight: 'bold',
+    inactiveTextFontWeight: 'normal',
   };
 
   renderTabOption = (name, page) => {
@@ -38,10 +42,10 @@ export default class DefaultTabBar extends Component {
   };
 
   renderTab = (name, page, isTabActive, onPressHandler) => {
-    const { activeTextColor, inactiveTextColor, textStyle, activeTextFontSize, inactiveTextFontSize} = this.props;
+    const { activeTextColor, inactiveTextColor, textStyle, activeTextFontSize, inactiveTextFontSize, activeTextFontWeight, inactiveTextFontWeight} = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
     const textFontSize = isTabActive? activeTextFontSize : inactiveTextFontSize;
-    const fontWeight = isTabActive ? 'bold' : 'normal';
+    const fontWeight = isTabActive ? activeTextFontWeight : inactiveTextFontWeight;
 
     return <Button
       style={{flex: 1, }}

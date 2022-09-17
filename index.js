@@ -16,7 +16,7 @@ if(typeof ViewPager === 'object' && typeof ViewPager.default === 'function') {
 
 const SceneComponent = require('./SceneComponent');
 const DefaultTabBar = require('./DefaultTabBar').default;
-const ScrollableTabBar = require('./ScrollableTabBar');
+const ScrollableTabBar = require('./ScrollableTabBar').default;
 
 const AnimatedViewPagerAndroid = Platform.OS === 'android' ?
     Animated.createAnimatedComponent(ViewPager) :
@@ -117,7 +117,6 @@ class ScrollableTabView extends PureComponent {
       }
     } else {
       if (this.scrollView) {
-        console.log('goToPage')
         let targetView = this.scrollView.setPageWithoutAnimation
             ? this.scrollView
             : this.scrollView.getNode();
@@ -130,14 +129,13 @@ class ScrollableTabView extends PureComponent {
     }
 
     const currentPage = this.state.currentPage;
-    console.log('goToPage')
     this.updateSceneKeys({
       page: pageNumber,
       callback: this._onChangeTab.bind(this, currentPage, pageNumber),
     });
   }
 
-  renderTabBar(props) {
+  renderTabBar = (props) => {
     if (this.props.renderTabBar === false) {
       return null;
     } else if (this.props.renderTabBar) {
@@ -147,13 +145,12 @@ class ScrollableTabView extends PureComponent {
     }
   }
 
-  updateSceneKeys({ page, children = this.props.children, callback = () => {}, }) {
-    console.log('updateSceneKeys', page)
+  updateSceneKeys = ({ page, children = this.props.children, callback = () => {}, }) => {
     let newKeys = this.newSceneKeys({ previousKeys: this.state.sceneKeys, currentPage: page, children, });
     this.setState({currentPage: page, sceneKeys: newKeys, }, callback);
   }
 
-  newSceneKeys({ previousKeys = [], currentPage = 0, children = this.props.children, }) {
+  newSceneKeys = ({ previousKeys = [], currentPage = 0, children = this.props.children, }) => {
     let newKeys = [];
     this._children(children).forEach((child, idx) => {
       let key = this._makeSceneKey(child, idx);
@@ -168,7 +165,7 @@ class ScrollableTabView extends PureComponent {
   // Animated.add and Animated.divide do not currently support listeners so
   // we have to polyfill it here since a lot of code depends on being able
   // to add a listener to `scrollValue`. See https://github.com/facebook/react-native/pull/12620.
-  _polyfillAnimatedValue(animatedValue) {
+  _polyfillAnimatedValue = (animatedValue) => {
 
     const listeners = new Set();
     const addListener = (listener) => {
@@ -190,13 +187,13 @@ class ScrollableTabView extends PureComponent {
     return (value) => listeners.forEach(listener => listener({ value, }));
   }
 
-  _shouldRenderSceneKey(idx, currentPageKey) {
+  _shouldRenderSceneKey = (idx, currentPageKey) => {
     let numOfSibling = this.props.prerenderingSiblingsNumber;
     return (idx < (currentPageKey + numOfSibling + 1) &&
         idx > (currentPageKey - numOfSibling - 1));
   }
 
-  _keyExists(sceneKeys, key) {
+  _keyExists = (sceneKeys, key) => {
     return sceneKeys.find((sceneKey) => key === sceneKey);
   }
 
@@ -232,7 +229,6 @@ class ScrollableTabView extends PureComponent {
       </Animated.ScrollView>;
     } else {
       const scenes = this._composeScenes();
-      console.log('initialPage', this.props.initialPage)
       return <AnimatedViewPagerAndroid
           key={this._children().length}
           style={styles.scrollableContentAndroid}
@@ -260,7 +256,7 @@ class ScrollableTabView extends PureComponent {
     }
   }
 
-  _composeScenes() {
+  _composeScenes = () => {
     return this._children().map((child, idx) => {
       let key = this._makeSceneKey(child, idx);
       return <SceneComponent
@@ -273,11 +269,10 @@ class ScrollableTabView extends PureComponent {
     });
   }
 
-  _onMomentumScrollBeginAndEnd(e) {
+  _onMomentumScrollBeginAndEnd = (e) => {
     const offsetX = e.nativeEvent.contentOffset.x;
     const page = Math.round(offsetX / this.state.containerWidth);
     if (this.state.currentPage !== page) {
-      console.log('_onMomentumScrollBeginAndEnd')
       this._updateSelectedPage(page);
     }
   }
@@ -289,7 +284,6 @@ class ScrollableTabView extends PureComponent {
     }
 
     const currentPage = this.state.currentPage;
-    console.log('_updateSelectedPage')
     this.updateSceneKeys({
       page: localNextPage,
       callback: this._onChangeTab.bind(this, currentPage, localNextPage),
@@ -340,7 +334,7 @@ class ScrollableTabView extends PureComponent {
     });
   }
 
-  _children(children = this.props.children) {
+  _children = (children = this.props.children) => {
     return React.Children.map(children, (child) => child);
   }
 

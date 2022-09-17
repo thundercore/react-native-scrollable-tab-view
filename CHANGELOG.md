@@ -1,3 +1,14 @@
+# 1.0.15 (2022-09-18)
+* 兼容RN0.69.x
+
+# 1.0.14 (2021-05-22)
+* 添加`activeTextFontWeight`、`inactiveTextFontWeight`属性
+* 将`ScrollableTabBar`改写为class组件
+
+# 1.0.11 (2021-05-22)
+android始终存在一个bug，是从react-native-pager-view里面的
+解锁屏幕后，会被重置到tab=0的位置
+
 # 1.0.9 (2021-05-03)
 
 * 将`ScrollableTabView`改写为class组件
